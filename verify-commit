@@ -1,0 +1,12 @@
+#!/bin/bash
+
+COMMIT=$1
+
+TIMESTAMP_SCRIPT="/Users/scoz/Git/git-timestamp-tools/timestamp"
+
+git ls-tree -r --name-only $COMMIT | awk "{print \"$COMMIT:\"\$0}" | git cat-file --batch > .tree-dump.tmp
+
+$TIMESTAMP_SCRIPT verify .tree-dump.tmp
+
+echo "Timestamp verified"
+rm .tree-dump.tmp

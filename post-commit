@@ -1,0 +1,11 @@
+#!/bin/bash
+
+TIMESTAMP_SCRIPT="/Users/scoz/Git/git-timestamp-tools/timestamp"
+
+git ls-files | awk '{print ":"$0}' | git cat-file --batch > .tree-dump.tmp
+
+echo $TIMESTAMP_SCRIPT
+$TIMESTAMP_SCRIPT send .tree-dump.tmp
+
+echo "Timestamp submitted"
+rm .tree-dump.tmp
