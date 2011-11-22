@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/sh
+# Copyright (c) 2011 Ryan Souza
+# Send the commit has to publictimestamp.org for
+# notarization.
 
-TIMESTAMP_SCRIPT="/Users/scoz/Git/git-timestamp-tools/timestamp"
-
-git ls-files | awk '{print ":"$0}' | git cat-file --batch > .tree-dump.tmp
-
-echo $TIMESTAMP_SCRIPT
-$TIMESTAMP_SCRIPT send .tree-dump.tmp
-
-echo "Timestamp submitted"
-rm .tree-dump.tmp
+TIMESTAMP_SCRIPT="git-notarize"
+HASH="`git rev-parse HEAD`"
+TIMESTAMP_FILE=/tmp/git-notarize-"$HASH"
+trap "rm -f $TIMESTAMP_FILE" 0 1 2 3 15
+echo "$HASH" > $TIMESTAMP_FILE
+$TIMESTAMP_SCRIPT send $TIMESTAMP_FILE

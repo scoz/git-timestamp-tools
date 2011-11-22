@@ -1,7 +1,0 @@
-#!/bin/bash
-
-echo "Timestamping $1 $2"
-
-TIMESTAMP_JAR="/Users/scoz/Git/git-timestamp-tools/publictimestamp.jar"
-
-java -jar "$TIMESTAMP_JAR" -action $1 -f $2

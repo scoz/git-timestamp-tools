@@ -1,0 +1,7 @@
+#!/bin/bash
+# Copyright (c) 2011 Ryan Souza
+# Invoke the "Public Timestamp" Java client to act on a file.
+
+TIMESTAMP_JAR="$HOME/work/timestamp-hash/git-timestamp-tools/publictimestamp.jar"
+
+java -jar "$TIMESTAMP_JAR" -action $1 -f $2
