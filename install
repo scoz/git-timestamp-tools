@@ -1,8 +1,0 @@
-#!/bin/bash
-
-echo $0
-
-TIMESTAMP_DIR="$HOME/work/timestamp-hash/git-timestamp-tools"
-
-ln "$TIMESTAMP_DIR/post-commit" .git/hooks/post-commit
-ln "$TIMESTAMP_DIR/verify-commit"

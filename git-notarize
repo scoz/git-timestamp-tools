@@ -1,7 +1,30 @@
-#!/bin/bash
+#!/bin/sh
 # Copyright (c) 2011 Ryan Souza
 # Invoke the "Public Timestamp" Java client to act on a file.
 
 TIMESTAMP_JAR="$HOME/work/timestamp-hash/git-timestamp-tools/publictimestamp.jar"
 
-java -jar "$TIMESTAMP_JAR" -action $1 -f $2
+case $1 in
+    --send)
+        ACTION=send
+        shift
+        ;;
+    --verify)
+        ACTION=verify
+        shift
+        ;;
+    --xml)
+        ACTION=xml
+        shift
+        ;;
+    *)
+        echo "$PGM: usage: $PGM [--send|--verify] <commitish>" >&2
+        exit 1
+        ;;
+esac
+HASH=`git rev-parse "$@"`
+[ $? -ne 0 ] && exit 1
+TIMESTAMP_FILE=/tmp/git-notarize-"$HASH"
+trap "rm -f $TIMESTAMP_FILE" 0 1 2 3 15
+echo "$HASH" >$TIMESTAMP_FILE
+exec java -jar "$TIMESTAMP_JAR" -action $ACTION -f $TIMESTAMP_FILE

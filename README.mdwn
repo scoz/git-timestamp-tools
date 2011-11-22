@@ -1,0 +1,26 @@
+Copyright (c) 2011 Ryan Souza and Bart Massey  
+publictimestamp.org for Git commits  
+
+To start notarizing Git commits for a repo:
+
+* Put `publictimestamp.jar` in a public place
+* Edit `git-notarize` to point at `publictimestamp.jar`
+* Put `git-notarize` in a public path
+* Put the `post-commit` hook in `.git/hooks`
+* Make sure `git-notarize` and `post-commit` are executable
+
+Now, whenever you commit you should see extra text reporting
+that the commit hash has been notarized at
+[http://publictimestamp.org](http://publictimestamp.org). To
+"verify" a commit hash, use
+
+>     git-notarize --verify <commitish>
+
+(with a committish that specifies a single commit).
+
+This source is available under the MIT license: see the file
+COPYING in this distribution for details. See
+[http://github.com/scoz/git-timestamp-tools](http://github.com/scoz/git-timestamp-tools)
+for the source code.
+
+Have fun!
