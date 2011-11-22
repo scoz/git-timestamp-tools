@@ -26,5 +26,5 @@ HASH=`git rev-parse "$@"`
 [ $? -ne 0 ] && exit 1
 TIMESTAMP_FILE=/tmp/git-notarize-"$HASH"
 trap "rm -f $TIMESTAMP_FILE" 0 1 2 3 15
-echo "$HASH" >$TIMESTAMP_FILE
-exec java -jar "$TIMESTAMP_JAR" -action $ACTION -f $TIMESTAMP_FILE
+echo "$HASH" >"$TIMESTAMP_FILE"
+exec java -jar "$TIMESTAMP_JAR" -action $ACTION -f "$TIMESTAMP_FILE"
